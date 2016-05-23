@@ -1,7 +1,10 @@
 (ns xml-splitter.core
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io]
+            [xml-splitter.zip :as zip]
+            [clojure.tools.cli :refer [parse-opts]])
   (:import [nl.pdok BoyerMoorePatternMatcher]
-           (java.io ByteArrayOutputStream)))
+           (java.io ByteArrayOutputStream))
+  (:gen-class))
 
 (defn find-next
   "Returns vector with on first positon the result to the next match or the result to end within machter
@@ -106,7 +109,23 @@
         (println "")
         file-names)))
 
+(def cli-options
+  [["-h" "--help"]])
+
+(def help "\nUsage: program-name source-file target-name splitter max-element")
+
+(defn- exit [status msg]
+  (println msg)
+  (System/exit status))
+
+(defn -main [& args]
+  (let [{:keys [options arguments summary]} (parse-opts args cli-options)]
+    (cond
+      (:help options) (exit 0 help)
+      (not= (count arguments) 4) (exit 1 (str "Wrong number of (" (count arguments) ") arguments\n" help)))
+    (apply split-xml (assoc arguments 3 (Integer/parseInt (get arguments 3))))))
+
 (defn split-and-zip [source target splitter max-elements]
   (let [file-names (split-xml source target splitter max-elements)]
-    (xml-splitter.zip/make-zip file-names target)))
+    (zip/make-zip file-names target)))
 
