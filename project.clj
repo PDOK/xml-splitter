@@ -7,7 +7,7 @@
                  [org.clojure/tools.cli "0.3.5"]]
   :source-paths ["src/clojure"]
   :resource-paths ["src/resources"]
-  :test-paths ["src/test/clojure"]
+  :test-paths ["test/clojure"]
   :java-source-paths ["src/java"]
   :target-path "target/%s"
   :main ^:skip-aot xml-splitter.core

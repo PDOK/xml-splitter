@@ -6,6 +6,8 @@
            (java.io ByteArrayOutputStream))
   (:gen-class))
 
+(def UTF-8-Encoding "UTF-8")
+
 (defn find-next
   "Returns vector with on first positon the result to the next match or the result to end within machter
    and on second position of a match is found"
@@ -17,7 +19,7 @@
   (-> content
       (subs start end)
       clojure.string/trim
-      (.getBytes "UTF-8")))
+      (.getBytes UTF-8-Encoding)))
 
 (defn- last-part [content tag]
   (let [content (String. content)
@@ -41,8 +43,8 @@
       (.writeTo stream o)
       file-name)))
 
-(defn- start-and-end-tag [splitter]
-  [(.getBytes (str "<" splitter ">") "UTF-8")
+(defn start-and-end-tag [splitter]
+  [(str "<" splitter ">")
    (str "</" splitter ">")])
 
 (defn- nr-and-stream
@@ -62,7 +64,7 @@
         id-start "s"]
     (with-open [input-stream (io/input-stream (io/file source))]
       (let [matcher (BoyerMoorePatternMatcher. input-stream)
-            _ (.setPattern matcher id-start start-tag)
+            _ (.setPattern matcher id-start (.getBytes start-tag UTF-8-Encoding))
             [header _] (find-next matcher id-start)]
         (loop [header header
                count 0
