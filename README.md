@@ -10,3 +10,9 @@ See `--help` for more info.
 
 # example
 `java -jar xml-splitter.jar --zip --auto path/to/file1.gml path/to/file2.gml`
+
+## Docker build
+`docker build -t xml-splitter .`
+
+## Docker run example
+`docker run -it --rm --name xml-splitter -v /media/sf_kadaster/github.com/xml-splitter/xml:/usr/src/app/xml xml-splitter java -jar xml-splitter.jar --auto xml/orig.xml`
