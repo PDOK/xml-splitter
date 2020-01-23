@@ -15,4 +15,5 @@ See `--help` for more info.
 `docker build -t xml-splitter .`
 
 ## Docker run example
-`docker run -it --rm --name xml-splitter -v /media/sf_kadaster/github.com/xml-splitter/xml:/usr/src/app/xml xml-splitter java -jar xml-splitter.jar --auto xml/orig.xml`
+`docker run -it --rm --name xml-splitter -v /folder/xml:/usr/src/app/xml xml-splitter java -jar xml-splitter.jar -v /folder/splitted:/usr/src/app/splitted --auto xml/bigfile.xml`
+
