@@ -23,5 +23,5 @@ docker build -t xml-splitter .
 ## docker run example
 
 ```docker
-docker run -it --rm --name xml-splitter -v /folder/xml:/usr/src/app/xml xml-splitter java -jar xml-splitter.jar -v /folder/splitted:/usr/src/app/splitted --auto xml/bigfile.xml`
+docker run -it --rm --name xml-splitter -v /folder/xml:/usr/src/app/xml xml-splitter java -jar xml-splitter.jar -v /folder/splitted:/usr/src/app/splitted --auto xml/bigfile.xml
 ```
